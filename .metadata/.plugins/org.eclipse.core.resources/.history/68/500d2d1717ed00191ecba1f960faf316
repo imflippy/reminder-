@@ -1,0 +1,129 @@
+package webscraping;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.telesign.MessagingClient;
+import com.telesign.RestClient;
+
+public class Scraper {
+
+	public static void generateTxt() {
+		
+		PrintWriter writer;
+		int id=1;
+		try {
+			writer = new PrintWriter("C:\\xampp\\htdocs\\TadHack\\data\\events.txt", "UTF-8");
+		
+		
+		
+		
+		try {
+			Document doc = Jsoup.connect("https://www.cineplexx.rs/filmovi/repertoar/").get();
+			
+			Elements elements = doc.getElementsByClass("info clearfix");
+			
+			//Elements reg= doc.getElementsMatchingOwnText(Pattern.compile(".*Belgrade.*"));
+			
+			//System.out.println(elements.size());
+
+			for(Element element:elements) 
+			{
+				
+				//System.out.println(element);
+				Elements slike= element.getElementsByTag("img");
+				Element slika = slike.get(0);
+				{
+					//for(Element src:slika.getElementsByAttribute("src"))
+   				//System.out.print(slika.attr("src") + "  ");
+					System.out.println(slika.attr("data-original")  + "|");
+					
+					writer.print(slika.attr("data-original") + "|");
+   				
+   				}
+				
+				try {
+				int size = element.text().length();
+				String datum = element.text().substring(size-47, size- 37);
+				String opis = element.text().substring(0, size - (49+37));
+				System.out.println( opis +" " + datum);
+				writer.print(opis + "|"+datum + "|" + id+"\n");
+				id++;
+				
+				}catch (Exception e ) {}
+			
+			
+			}
+					
+
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			
+		}
+		
+		
+		
+		
+	}
+	  
+
+	
+		public static void readTxt() {
+			
+			  File file = 
+				      new File("C:\\xampp\\htdocs\\TadHack\\data\\send.txt"); 
+				    Scanner sc = new Scanner(file); 
+				  
+				    while (sc.hasNextLine()) 
+				      System.out.println(sc.nextLine()); 
+				  } 
+			
+			
+			
+			
+			
+		}
+	  
+
+	      public static void send(String message) {
+
+	          String customerId = "4E1D030E-EB3A-482E-AF1F-03E76DC72C72";
+	          String apiKey = "XsIF0oZ0cLdHc3RH9TfSFOIGFde6oHW8lYPH90d7J/Nw+XAdCqMH+k5XQOn4m6P41TaL1cceVZA17GoXZzy4pA==";
+	          String phoneNumber = "381649586916";
+	         // String message = "You're scheduled for a dentist appointment at 2:30PM.";
+	          String messageType = "ARN";
+
+	          try {
+	              MessagingClient messagingClient = new MessagingClient(customerId, apiKey);
+	              RestClient.TelesignResponse telesignResponse = messagingClient.message(phoneNumber, message, messageType, null);
+	              System.out.println("Your reference id is: "+telesignResponse.json.get("reference_id"));
+	           System.out.println(telesignResponse.json);
+	          } catch (Exception e) {
+	              e.printStackTrace();
+	          }
+	      }
+	  public static void main(String [] args) {
+		 // generateTxt();
+		  readTxt();
+	  }
+	  
+}

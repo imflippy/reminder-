@@ -1,0 +1,228 @@
+package webscrapingtest;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Choice;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.TextField;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.plaf.ComboBoxUI;
+
+public class Server extends Frame {
+	private static final int  TIME=10000;
+	
+	private class Nit extends Thread{
+		public Nit() {
+			Scraper.generateTxt();}
+		
+		public void endThread() {interrupt();}
+		public void startThread() {start();}
+		private Date yesterday(Date d22) {
+		    final Calendar cal = Calendar.getInstance();
+		    cal.setTime(d22);
+		    cal.add(Calendar.DATE, -1);
+		    return cal.getTime();
+		}
+		private Date d2;
+		
+		public void run() {
+			try {
+				d2 = new Date();
+				while(!interrupted()) {
+					Scraper.readTxt();
+					LinkedList<Integer> ids = new LinkedList<Integer>();
+					//Scraper.generateTxt(); URADI UPDATE
+					//Alarm
+					 String pattern = "dd-MM-yyyy";
+					String dateInString =new SimpleDateFormat(pattern).format(new Date());
+					dateInString.replace('-', '.');
+					synchronized (Entity.base) {
+						
+					
+					Entity.base.values().stream().forEach(event->{
+						Date d1 = event.getDate();
+						
+						boolean flag = d1.getDate() == d2.getDate() && d1.getMonth() == d2.getMonth() && d2.getYear()==d1.getYear();
+						//if(event.getDate().after(d2)) 
+						
+						
+							if(flag)
+							event.getSubs().forEach(number->{
+								String message = "You have event today:\n" + event.getAbout() + "\nDate:" + event.getDate();
+								Scraper.send(message,number);
+								System.out.println("Broj " + number + " :" + message);
+							});
+							
+						 else if (event.getDate().before(yesterday(d2))) {
+							ids.add(event.getId());
+						  System.out.println("usao");
+						 
+						
+						}
+						
+					});
+					
+					for (Integer integer : ids) {
+						Entity.base.remove(integer);
+					  }
+					}
+					
+					d2=Scraper.tomorrow(d2);
+					updateCombo();
+				sleep(TIME);	
+				}
+			}catch(InterruptedException e) {}
+			
+		}
+		
+	}
+	private Label ll = new  Label();
+	private Nit nit= new Nit();
+	public void otkaziFilm(int id) {
+	 
+		synchronized (Entity.base) {
+	  try {		
+		
+		Entity.base.get(id).getSubs().forEach(number->{
+			System.out.println("Number "+number + "Movies canceled " + Entity.base.get(id));
+			Scraper.send("Movies canceled " + Entity.base.get(id), number);
+		});
+		Entity.base.remove(id);
+	} catch (NullPointerException e) {}
+		}
+		
+		updateCombo();
+		
+	}
+	
+	public void pomeriFilm(int id, String when) {
+		synchronized (Entity.base) {
+			
+	 try {	
+		Entity.base.get(id).setDate(when);
+		System.out.println(Entity.base.get(id));
+		Entity.base.get(id).getSubs().forEach(number->{
+			System.out.println("Number "+number + " movie rescheduled " + Entity.base.get(id));
+			Scraper.send("Movie rescheduled :" + Entity.base.get(id), number);
+		});
+		
+		} catch(NullPointerException e) {}
+		
+	}
+		updateCombo();
+	}
+	
+	TextField field;
+	public Server () {
+		super("Server");
+		setSize(800, 600);
+		Panel p = new Panel();
+		Label format= new Label("dd.mm.yyyy");
+		field = new TextField(10);
+		Button reschedule = new Button("reschedule movie");
+		p.add(format); p.add(field); p.add(reschedule);
+		Button remove = new Button("Cancel movie");
+		Panel d = new Panel();
+		d.add(remove);
+		Button startServer= new Button("Start server");
+		startServer.addActionListener(l->{nit.startThread(); startServer.disable();});
+		Panel south = new Panel();
+		south.setLayout(new GridLayout(3, 1));
+		south.add(p); south.add(d);
+		Panel pp = new Panel();
+		pp.add(startServer);
+		
+		Button bb = new Button("Update base");
+		bb.addActionListener(l->{Scraper.generateTxtFromDatabase();});
+		pp.add(bb);
+		south.add(pp);
+		add(south, BorderLayout.SOUTH);
+		
+		c= new JComboBox<Entity>();
+		updateCombo();
+		
+		setVisible(true);
+		
+		remove.addActionListener(l->{
+			Entity e = (Entity)(c.getSelectedItem());
+			otkaziFilm(e.getId());
+			
+			
+		});
+		reschedule.addActionListener(l->{
+			Entity e = (Entity) (c.getSelectedItem());
+			
+			pomeriFilm(e.getId(), field.getText());
+			
+			
+		});
+		
+		add(c,BorderLayout.NORTH);
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				if(nit!=null)nit.endThread();
+				dispose();
+				
+			}
+			
+		});
+		BufferedImage buttonIcon;
+		try {
+			buttonIcon = ImageIO.read(new File("C:\\xampp\\htdocs\\TadHack\\assets\\images\\logoR.png"));
+			JLabel button = new JLabel(new ImageIcon(buttonIcon));
+			add(button);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	private JComboBox c;
+	private void updateCombo() {
+		synchronized (Entity.base) {
+			c.removeAllItems();
+			Entity.base.values().forEach(movie->{ 
+				//System.out.println(movie);
+				c.addItem(movie);
+				//c.add(movie.getAbout() + "   " + movie.dateS);
+				});
+				//c.updateUI();
+			//c.revalidate();
+				//Scraper.generateTxtFromDatabase();
+		}
+		
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Server s = new Server();
+
+	}
+
+}

@@ -1,0 +1,17 @@
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/223_172.png|Ad Astra Prikazuje se u: MX4D 2D Ad Astra avantura, drama, naučna-fantastika|Sun Oct 13 18:00:00 CEST 2019|1
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/OUTH-Poster-B1-Teaser-1-SRB.png|Bilo jednom... u Holivudu Once Upon a Time in Hollywood drama, triler|Sun Oct 13 18:00:00 CEST 2019|2
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/Gemini-Man-za-Cineplexx223.png|Blizanac Prikazuje se u: / Gemini Man akcija, naučna-fantastika|Mon Oct 14 18:00:00 CEST 2019|3
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/Dora-za-Cinplexx223.png|Dora i izgubljeni zlatni grad Dora and the Lost City of Gold avantura, porodični|Mon Oct 14 18:00:00 CEST 2019|4
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/SERB_JOKER_VERT_SMILE_223.png|Džoker Joker triler, drama|Mon Oct 14 18:00:00 CEST 2019|5
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/Abominable-za-Cineplexx223.jpg|Jeti - Snežni čovek Prikazuje se u: / Abominable animirani, avantura, porodičn|Tue Oct 15 18:00:00 CEST 2019|6
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/Lion-King-payoff-za-Cineplexx223.png|Kralj lavova Prikazuje se u: / The Lion King animirani, avantura, porodični|Tue Oct 15 18:00:00 CEST 2019|7
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/PREY-Keyart223.png|Lov Prey hor|Tue Oct 15 18:00:00 CEST 2019|8
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/my_people223.png|My People, My Country Wo he wo de zu guo drama|Wed Oct 16 20:00:00 CEST 2019|9
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/ona_mi_je_sve__cineplexx_275x400.jpg|Ona mi je sve Mon Inconnue komedija, drama, romantični/ljubavni|Wed Oct 16 20:00:00 CEST 2019|10
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/B1_ANGEL_HAS_FALLEN223.png|Pad anđela Prikazuje se u: MX4D 2D Angel Has Fallen akcija, triler|Wed Oct 16 20:00:00 CEST 2019|11
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/B1_HUSTLERS_SRB223.png|Prevarantkinje sa Vol Strita Hustlers komedija, drama, krimi|Thu Oct 17 18:00:00 CEST 2019|12
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/Toy-Story-4-za-Cineplexx223.png|Priča o igračkama 4 Prikazuje se u: / Toy Story 4 animirani, avantura, komedija|Thu Oct 17 18:00:00 CEST 2019|13
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/223_180.png|Rambo - Do poslednje kapi krvi Prikazuje se u: MX4D 2D Rambo V: Last Blood akcija, avantura|Thu Oct 17 18:00:00 CEST 2019|14
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/SERB_IT_poster223.jpg|To - Drugo poglavlje Prikazuje se u: MX4D 2D IT Chapter Two horor, triler|Fri Oct 18 20:00:00 CEST 2019|15
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/thumbnail_HAUNT-4000x5749px-SRB223.jpg|Ukleto Haunt horo|Fri Oct 18 20:00:00 CEST 2019|16
+//www.cineplexx.rs//GenticsImageStore/80/112/force/media/rs/inc/movies_licences/VOJNA_AKADEMIJA_5_POSTER223.jpg|Vojna akademija 5 Vojna akademija 5 drama, triler|Fri Oct 18 20:00:00 CEST 2019|17
